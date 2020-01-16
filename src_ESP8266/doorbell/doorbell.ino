@@ -23,7 +23,7 @@ int buttonVal_old = !FLASH_ON;
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
-  digitalWrite(LED_BUILTIN, LOW);   // turn the LED on (HIGH is the voltage level)
+  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED off (LED is active LOW)
 
   // initialize FLASH button as input
   pinMode(buttonFlash, INPUT_PULLUP);
@@ -57,41 +57,51 @@ void setup() {
 // the loop function runs over and over again forever
 void loop() {
   if (WiFi.status() == WL_CONNECTED) {
-    
-    // Make lights blink using python code
-    /*
-     * As far as I see, there are two ways that I could accomplish this:
-     * 
-     * 1. Somehow have the python code flashed to the ESP8266, and run
-     *    the light blinking code directly from the board. This will
-     *    probably be very hard due to incompatibility between pyFirmata
-     *    and ESP8266.
-     *    
-     * 2. The ESP8266 sends a signal to the PieHole (192.168.1.137), which
-     *    triggers the light blinking python code to run on the PieHole.
-     *    This seems more feasible to me, but obviously there are some
-     *    moving parts that have to be figured out.
-     *    
-     *    I WENT WITH #2
-     */
     buttonVal = digitalRead(buttonFlash);
-    if (buttonVal != buttonVal_old && buttonVal == FLASH_ON) {
-      Serial.println("You pressed the FLASH button!");
-
-      // Set up HTTPClient
-      HTTPClient http;
-      http.begin("http://192.168.1.137:8090/ring");
-
-      // Send the GET request
-      int httpCode = http.GET();
-      String payload = http.getString();
-      Serial.println(httpCode);
-      Serial.println(payload);
-
-      // End the connection
-      http.end();
+    
+    if (buttonVal != buttonVal_old) {
+      
+      // The button has been pressed
+      if (buttonVal == FLASH_ON) {
+      // Make lights blink using python code
+      /*
+       * As far as I see, there are two ways that I could accomplish this:
+       * 
+       * 1. Somehow have the python code flashed to the ESP8266, and run
+       *    the light blinking code directly from the board. This will
+       *    probably be very hard due to incompatibility between pyFirmata
+       *    and ESP8266.
+       *    
+       * 2. The ESP8266 sends a signal to the PieHole (192.168.1.137), which
+       *    triggers the light blinking python code to run on the PieHole.
+       *    This seems more feasible to me, but obviously there are some
+       *    moving parts that have to be figured out.
+       *    
+       *    I WENT WITH #2
+       */
+        Serial.println("You pressed the FLASH button!");
+        digitalWrite(LED_BUILTIN, LOW); // Turn the LED ON
   
+        // Set up HTTPClient
+        HTTPClient http;
+        http.begin("http://192.168.1.137:8090/ring");
+  
+        // Send the GET request
+        int httpCode = http.GET();
+        String payload = http.getString();
+        Serial.println(httpCode);
+        Serial.println(payload);
+  
+        // End the connection
+        http.end();
+      }
+      
+      // The button has been released
+      else {
+        digitalWrite(LED_BUILTIN, HIGH); // Turn the LED OFF
+      }
     }
+    
     buttonVal_old = buttonVal;
   }
 }
