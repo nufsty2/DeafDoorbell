@@ -20,7 +20,7 @@ This was where I came to a wall. If the light blinking code has to be in Python,
 The last step was housing the ESP8266 in something cool, so I 3D printed a case for it on campus using [this file](https://www.thingiverse.com/thing:2786523)!
 
 Block Diagram:
-![Block Diagram](https://github.com/nufsty2/DeafDoorbell/blob/master/Pictures/Deaf%20Doorbell.svg)
+![Block Diagram](https://github.com/nufsty2/DeafDoorbell/blob/master/Demos/Deaf%20Doorbell.svg)
 
 ## Dependencies
 [TP-Link Smart Plug Python Library](https://github.com/vrachieru/tplink-smartplug-api)
