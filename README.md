@@ -1,4 +1,6 @@
 # Deaf Doorbell
+![Final Product](https://github.com/nufsty2/DeafDoorbell/blob/master/Demos/FinalProduct.jpg)
+
 What you will need:
 * ESP8266 MicroController
 * Raspberry Pi (I have a 3B+)
