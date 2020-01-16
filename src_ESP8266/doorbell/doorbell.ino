@@ -1,5 +1,5 @@
 /*
-  LED
+  Doorbell code
 */
 
 #include <ESP8266WiFi.h>
@@ -58,6 +58,22 @@ void setup() {
 void loop() {
   if (WiFi.status() == WL_CONNECTED) {
     
+    // Make lights blink using python code
+    /*
+     * As far as I see, there are two ways that I could accomplish this:
+     * 
+     * 1. Somehow have the python code flashed to the ESP8266, and run
+     *    the light blinking code directly from the board. This will
+     *    probably be very hard due to incompatibility between pyFirmata
+     *    and ESP8266.
+     *    
+     * 2. The ESP8266 sends a signal to the PieHole (192.168.1.137), which
+     *    triggers the light blinking python code to run on the PieHole.
+     *    This seems more feasible to me, but obviously there are some
+     *    moving parts that have to be figured out.
+     *    
+     *    I WENT WITH #2
+     */
     buttonVal = digitalRead(buttonFlash);
     if (buttonVal != buttonVal_old && buttonVal == FLASH_ON) {
       Serial.println("You pressed the FLASH button!");
@@ -75,20 +91,6 @@ void loop() {
       // End the connection
       http.end();
   
-      // TODO: make lights blink using python code
-      /*
-       * As far as I see, there are two ways that I could accomplish this:
-       * 
-       * 1. Somehow have the python code flashed to the ESP8266, and run
-       *    the light blinking code directly from the board. This will
-       *    probably be very hard due to incompatibility between pyFirmata
-       *    and ESP8266.
-       *    
-       * 2. The ESP8266 sends a signal to the PieHole (192.168.1.137), which
-       *    triggers the light blinking python code to run on the PieHole.
-       *    This seems more feasible to me, but obviously there are some
-       *    moving parts that have to be figured out.
-       */
     }
     buttonVal_old = buttonVal;
   }

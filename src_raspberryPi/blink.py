@@ -25,7 +25,7 @@ def start_blink():
     # We need to keep track of time
     old_time = time.time()
     new_time = time.time()
-    while (new_time - old_time < 30):
+    while (new_time - old_time < 15):
         # Pause for 0.25 seconds, then increment time
         time.sleep(0.5)
         new_time = time.time()
