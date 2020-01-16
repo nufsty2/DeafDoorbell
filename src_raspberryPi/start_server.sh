@@ -9,4 +9,4 @@
 # to the /etc/rc.local file to have this run upon boot
 
 sleep 10
-python3 pi_server.py
+python3 /home/pi/DeafDoorbell/src_raspberryPi/pi_server.py
