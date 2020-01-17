@@ -1,5 +1,5 @@
 # Deaf Doorbell
-![Final Product](https://github.com/nufsty2/DeafDoorbell/blob/master/Demos/InUse.jpg)
+![Final Product](https://github.com/nufsty2/DeafDoorbell/blob/master/Demos/FinalProduct.jpg)
 
 What you will need:
 * ESP8266 MicroController
