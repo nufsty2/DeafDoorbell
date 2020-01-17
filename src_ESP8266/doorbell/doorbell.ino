@@ -19,6 +19,9 @@ const int buttonFlash = 0;
 int buttonVal = !FLASH_ON;
 int buttonVal_old = !FLASH_ON;
 
+unsigned long oldTime = 0;
+unsigned long newTime = 0;
+
 // the setup function runs once when you press reset or power the board
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
@@ -81,6 +84,8 @@ void loop() {
        */
         Serial.println("You pressed the FLASH button!");
         digitalWrite(LED_BUILTIN, LOW); // Turn the LED ON
+        oldTime = millis();
+        newTime = oldTime;
   
         // Set up HTTPClient
         HTTPClient http;
@@ -95,10 +100,16 @@ void loop() {
         // End the connection
         http.end();
       }
-      
-      // The button has been released
-      else {
-        digitalWrite(LED_BUILTIN, HIGH); // Turn the LED OFF
+    }
+
+    // If the LED is on, record time
+    if (digitalRead(LED_BUILTIN) == LOW) {
+      newTime = millis();
+      // If LED has been on for 15 seconds, turn it off
+      if (newTime - oldTime >= 15000) {
+        digitalWrite(LED_BUILTIN, HIGH);
+        oldTime = 0;
+        newTime = 0;
       }
     }
     
