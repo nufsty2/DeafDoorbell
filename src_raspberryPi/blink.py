@@ -27,7 +27,7 @@ def start_blink():
     new_time = time.time()
     while (new_time - old_time < 15):
         # Pause for 1 seconds, then increment time
-        time.sleep(0.5)
+        time.sleep(2)
         new_time = time.time()
 
         # Blink lights
@@ -37,12 +37,12 @@ def start_blink():
         else:
             bedroom.turn_on()
             bedroom_on = True
-        # if livingroom_on:
-        #     livingroom.turn_off()
-        #     livingroom_on = False
-        # else:
-        #     livingroom.turn_on()
-        #     livingroom_on = True
+        if livingroom_on:
+            livingroom.turn_off()
+            livingroom_on = False
+        else:
+            livingroom.turn_on()
+            livingroom_on = True
         
     # Make sure lights end how they started
     if livingroom_on_init:
