@@ -27,7 +27,7 @@ def start_blink():
     new_time = time.time()
     while (new_time - old_time < 15):
         # Pause for 1 seconds, then increment time
-        time.sleep(2)
+        time.sleep(1)
         new_time = time.time()
 
         # Blink lights
