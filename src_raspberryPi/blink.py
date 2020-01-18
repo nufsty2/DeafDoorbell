@@ -9,20 +9,29 @@ import time
 # Set up plugs
 livingroom = SmartPlug('192.168.1.140')
 bedroom    = SmartPlug('192.168.1.139')
+kitchen    = SmartPlug('192.168.1.136')
+
 # Get initial states of plugs
 livingroom_on_init = False
 bedroom_on_init = False
+kitchen_on_init = False
 
 def reset_lights():
     # Make sure lights end how they started
-        if livingroom_on_init:
-            livingroom.turn_on()
-        else:
-            livingroom.turn_off()
-        if bedroom_on_init:
-            bedroom.turn_on()
-        else:
-            bedroom.turn_off()
+    if livingroom_on_init:
+        livingroom.turn_on()
+    else:
+        livingroom.turn_off()
+
+    if bedroom_on_init:
+        bedroom.turn_on()
+    else:
+        bedroom.turn_off()
+
+    if kitchen_on_init:
+        kitchen.turn_on()
+    else:
+        kitchen.turn_off()
 
 
 """
@@ -33,9 +42,12 @@ def start_blink():
     # Get initial states of plugs
     livingroom_on_init = livingroom.is_on
     bedroom_on_init = bedroom.is_on
+    kitchen_on_init = kitchen.is_on
+
     # Copy initial states of plugs. This will make blinking much faster
     livingroom_on = livingroom_on_init
     bedroom_on = bedroom_on_init
+    kitchen_on = kitchen_on_init
 
     # We need to keep track of time
     old_time = time.time()
@@ -56,6 +68,12 @@ def start_blink():
             else:
                 livingroom.turn_on()
                 livingroom_on = True
+            if kitchen_on:
+                kitchen.turn_off()
+                kitchen_on = False
+            else:
+                kitchen.turn_on()
+                kitchen_on = True
 
             # Pause for 1 second, then increment time
             time.sleep(1)
