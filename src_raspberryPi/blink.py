@@ -12,6 +12,7 @@ bedroom     = SmartPlug('192.168.1.139')
 kitchen     = SmartPlug('192.168.1.136')
 desk        = SmartPlug('192.168.1.110')
 bathroom    = SmartPlug('192.168.1.125')
+twinklies   = SmartPlug('192.168.1.122')
 
 # Get initial states of plugs
 livingroom_on_init  = False
@@ -19,6 +20,7 @@ bedroom_on_init     = False
 kitchen_on_init     = False
 desk_on_init        = False
 bathroom_on_init    = False
+twinklies_on_init   = False
 
 def reset_lights():
     # Make sure lights end how they started
@@ -47,6 +49,11 @@ def reset_lights():
     else:
         bathroom.turn_off()
 
+    if twinklies_on_init:
+        twinklies.turn_on()
+    else:
+        twinklies.turn_off()
+
 """
 This function will blink the two smart plugs at
 0.5 second intervals
@@ -58,6 +65,7 @@ def start_blink():
     kitchen_on_init     = kitchen.is_on
     desk_on_init        = desk.is_on
     bathroom_on_init    = bathroom.is_on
+    twinklies_on_init   = twinklies.is_on
 
     # Copy initial states of plugs. This will make blinking much faster
     livingroom_on       = livingroom_on_init
@@ -65,6 +73,7 @@ def start_blink():
     kitchen_on          = kitchen_on_init
     desk_on             = desk_on_init
     bathroom_on         = bathroom_on_init
+    twinklies_on        = twinklies_on_init
 
     # We need to keep track of time
     old_time = time.time()
@@ -103,6 +112,12 @@ def start_blink():
             else:
                 bathroom.turn_on()
                 bathroom_on = True
+            if twinklies_on:
+                twinklies.turn_off()
+                twinklies_on = False
+            else:
+                twinklies.turn_on()
+                twinklies_on = True
 
             # Pause for 1 second, then increment time
             time.sleep(1)
