@@ -7,14 +7,18 @@ from tplink_smartplug import SmartPlug
 import time
 
 # Set up plugs
-livingroom = SmartPlug('192.168.1.140')
-bedroom    = SmartPlug('192.168.1.139')
-kitchen    = SmartPlug('192.168.1.136')
+livingroom  = SmartPlug('192.168.1.140')
+bedroom     = SmartPlug('192.168.1.139')
+kitchen     = SmartPlug('192.168.1.136')
+desk        = SmartPlug('192.168.1.110')
+bathroom    = SmartPlug('192.168.1.125')
 
 # Get initial states of plugs
-livingroom_on_init = False
-bedroom_on_init = False
-kitchen_on_init = False
+livingroom_on_init  = False
+bedroom_on_init     = False
+kitchen_on_init     = False
+desk_on_init        = False
+bathroom_on_init    = False
 
 def reset_lights():
     # Make sure lights end how they started
@@ -32,7 +36,16 @@ def reset_lights():
         kitchen.turn_on()
     else:
         kitchen.turn_off()
+    
+    if desk_on_init:
+        desk.turn_on()
+    else:
+        desk.turn_off()
 
+    if bathroom_on_init:
+        bathroom.turn_on()
+    else:
+        bathroom.turn_off()
 
 """
 This function will blink the two smart plugs at
@@ -40,14 +53,18 @@ This function will blink the two smart plugs at
 """
 def start_blink():
     # Get initial states of plugs
-    livingroom_on_init = livingroom.is_on
-    bedroom_on_init = bedroom.is_on
-    kitchen_on_init = kitchen.is_on
+    livingroom_on_init  = livingroom.is_on
+    bedroom_on_init     = bedroom.is_on
+    kitchen_on_init     = kitchen.is_on
+    desk_on_init        = desk.is_on
+    bathroom_on_init    = bathroom.is_on
 
     # Copy initial states of plugs. This will make blinking much faster
-    livingroom_on = livingroom_on_init
-    bedroom_on = bedroom_on_init
-    kitchen_on = kitchen_on_init
+    livingroom_on       = livingroom_on_init
+    bedroom_on          = bedroom_on_init
+    kitchen_on          = kitchen_on_init
+    desk_on             = desk_on_init
+    bathroom_on         = bathroom_on_init
 
     # We need to keep track of time
     old_time = time.time()
@@ -74,6 +91,18 @@ def start_blink():
             else:
                 kitchen.turn_on()
                 kitchen_on = True
+            if desk_on:
+                desk.turn_off()
+                desk_on = False
+            else:
+                desk.turn_on()
+                desk_on = True
+            if bathroom_on:
+                bathroom.turn_off()
+                bathroom_on = False
+            else:
+                bathroom.turn_on()
+                bathroom_on = True
 
             # Pause for 1 second, then increment time
             time.sleep(1)
