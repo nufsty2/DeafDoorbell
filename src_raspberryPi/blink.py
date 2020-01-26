@@ -43,7 +43,7 @@ def reset_lights():
 def blink_light(plug):
     if plug.is_on:
         plug.turn_off()
-    else
+    else:
         plug.turn_on()
 
 
