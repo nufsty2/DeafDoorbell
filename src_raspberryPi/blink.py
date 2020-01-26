@@ -76,7 +76,7 @@ def start_blink():
 
             # Pause for 1 second, then increment time
             time.sleep(1)
-            num_blinks++
+            num_blinks += 1
 
         reset_lights()
         
