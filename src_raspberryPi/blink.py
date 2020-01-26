@@ -15,12 +15,12 @@ bathroom    = SmartPlug('192.168.1.125')
 twinklies   = SmartPlug('192.168.1.122')
 
 # Get initial states of plugs
-livingroom_on_init  = False
-bedroom_on_init     = False
-kitchen_on_init     = False
-desk_on_init        = False
-bathroom_on_init    = False
-twinklies_on_init   = False
+livingroom_on_init  = livingroom.is_on
+bedroom_on_init     = bedroom.is_on
+kitchen_on_init     = kitchen.is_on
+desk_on_init        = desk.is_on
+bathroom_on_init    = bathroom.is_on
+twinklies_on_init   = twinklies.is_on
 
 
 def reset_light(plug, is_on_init):
@@ -52,14 +52,6 @@ This function will blink the two smart plugs at
 0.5 second intervals
 """
 def start_blink():
-    # Get initial states of plugs
-    livingroom_on_init  = livingroom.is_on
-    bedroom_on_init     = bedroom.is_on
-    kitchen_on_init     = kitchen.is_on
-    desk_on_init        = desk.is_on
-    bathroom_on_init    = bathroom.is_on
-    twinklies_on_init   = twinklies.is_on
-
     # Keep track of number of blinks
     num_blinks = 0
 
