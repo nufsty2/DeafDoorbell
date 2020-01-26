@@ -22,37 +22,30 @@ desk_on_init        = False
 bathroom_on_init    = False
 twinklies_on_init   = False
 
+
+def reset_light(plug, is_on_init):
+    if is_on_init:
+        plug.turn_on()
+    else:
+        plug.turn_off()
+
+
 def reset_lights():
     # Make sure lights end how they started
-    if livingroom_on_init:
-        livingroom.turn_on()
-    else:
-        livingroom.turn_off()
+    reset_light(livingroom, livingroom_on_init)
+    reset_light(bedroom, bedroom_on_init)
+    reset_light(kitchen, kitchen_on_init)
+    reset_light(desk, desk_on_init)
+    reset_light(bathroom, bathroom_on_init)
+    reset_light(twinklies, twinklies_on_init)
 
-    if bedroom_on_init:
-        bedroom.turn_on()
-    else:
-        bedroom.turn_off()
 
-    if kitchen_on_init:
-        kitchen.turn_on()
-    else:
-        kitchen.turn_off()
-    
-    if desk_on_init:
-        desk.turn_on()
-    else:
-        desk.turn_off()
+def blink_light(plug):
+    if plug.is_on:
+        plug.turn_off()
+    else
+        plug.turn_on()
 
-    if bathroom_on_init:
-        bathroom.turn_on()
-    else:
-        bathroom.turn_off()
-
-    if twinklies_on_init:
-        twinklies.turn_on()
-    else:
-        twinklies.turn_off()
 
 """
 This function will blink the two smart plugs at
@@ -67,61 +60,23 @@ def start_blink():
     bathroom_on_init    = bathroom.is_on
     twinklies_on_init   = twinklies.is_on
 
-    # Copy initial states of plugs. This will make blinking much faster
-    livingroom_on       = livingroom_on_init
-    bedroom_on          = bedroom_on_init
-    kitchen_on          = kitchen_on_init
-    desk_on             = desk_on_init
-    bathroom_on         = bathroom_on_init
-    twinklies_on        = twinklies_on_init
-
-    # We need to keep track of time
-    old_time = time.time()
-    new_time = time.time()
+    # Keep track of number of blinks
+    num_blinks = 0
 
     try:
-        while (new_time - old_time < 15):
+        # num_blinks < #: # should be even
+        while (num_blinks < 8):
             # Blink lights
-            if bedroom_on:
-                bedroom.turn_off()
-                bedroom_on = False
-            else:
-                bedroom.turn_on()
-                bedroom_on = True
-            if livingroom_on:
-                livingroom.turn_off()
-                livingroom_on = False
-            else:
-                livingroom.turn_on()
-                livingroom_on = True
-            if kitchen_on:
-                kitchen.turn_off()
-                kitchen_on = False
-            else:
-                kitchen.turn_on()
-                kitchen_on = True
-            if desk_on:
-                desk.turn_off()
-                desk_on = False
-            else:
-                desk.turn_on()
-                desk_on = True
-            if bathroom_on:
-                bathroom.turn_off()
-                bathroom_on = False
-            else:
-                bathroom.turn_on()
-                bathroom_on = True
-            if twinklies_on:
-                twinklies.turn_off()
-                twinklies_on = False
-            else:
-                twinklies.turn_on()
-                twinklies_on = True
+            blink_light(bedroom)
+            blink_light(livingroom)
+            blink_light(kitchen)
+            blink_light(desk)
+            blink_light(bathroom)
+            blink_light(twinklies)
 
             # Pause for 1 second, then increment time
             time.sleep(1)
-            new_time = time.time()
+            num_blinks++
 
         reset_lights()
         
