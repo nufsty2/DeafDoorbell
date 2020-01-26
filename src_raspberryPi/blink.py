@@ -57,7 +57,7 @@ def start_blink():
 
     try:
         # num_blinks < #: # should be even
-        while (num_blinks < 8):
+        while (num_blinks < 14):
             # Blink lights
             blink_light(bedroom)
             blink_light(livingroom)
