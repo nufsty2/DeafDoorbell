@@ -10,3 +10,4 @@
 
 sleep 10
 su -c 'python3 /home/pi/DeafDoorbell/src_raspberryPi/pi_server.py >/home/pi/logs/server.log' pi
+sleep 10
