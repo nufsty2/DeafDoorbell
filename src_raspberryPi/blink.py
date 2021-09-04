@@ -24,10 +24,10 @@ twinklies_on_init   = twinklies.is_on
 
 
 def reset_light(plug, is_on_init):
-    if is_on_init:
-        plug.turn_on()
-    else:
+    if plug.is_on and not is_on_init:
         plug.turn_off()
+    elif not plug.is_on and is_on_init:
+        plug.turn_on()
 
 
 def reset_lights():
