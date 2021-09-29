@@ -14,14 +14,27 @@ desk        = SmartPlug('192.168.1.110')
 bathroom    = SmartPlug('192.168.1.125')
 twinklies   = SmartPlug('192.168.1.122')
 
-# Get initial states of plugs
-livingroom_on_init  = livingroom.is_on
-bedroom_on_init     = bedroom.is_on
-kitchen_on_init     = kitchen.is_on
-desk_on_init        = desk.is_on
-bathroom_on_init    = bathroom.is_on
-twinklies_on_init   = twinklies.is_on
+livingroom_on_init  = False
+bedroom_on_init     = False
+kitchen_on_init     = False
+desk_on_init        = False
+bathroom_on_init    = False
+twinklies_on_init   = False
 
+def set_initial_states():
+    global livingroom_on_init
+    global bedroom_on_init
+    global kitchen_on_init
+    global desk_on_init
+    global bathroom_on_init
+    global twinklies_on_init
+
+    livingroom_on_init  = livingroom.is_on
+    bedroom_on_init     = bedroom.is_on
+    kitchen_on_init     = kitchen.is_on
+    desk_on_init        = desk.is_on
+    bathroom_on_init    = bathroom.is_on
+    twinklies_on_init   = twinklies.is_on
 
 def reset_light(plug, is_on_init):
     if plug.is_on and not is_on_init:
@@ -54,6 +67,8 @@ This function will blink the two smart plugs at
 def start_blink():
     # Keep track of number of blinks
     num_blinks = 0
+
+    set_initial_states()
 
     try:
         # num_blinks < #: # should be even

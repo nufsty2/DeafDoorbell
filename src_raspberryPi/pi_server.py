@@ -15,6 +15,6 @@ This function will respond to
 @app.route('/ring')
 def ring():
     blink.start_blink()
-    return "Hello from the raspberry Pi!"
+    return "Hello from the raspberry Pi\n"
 
 app.run(host='0.0.0.0', port=8090)
