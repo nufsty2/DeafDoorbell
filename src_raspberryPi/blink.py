@@ -7,34 +7,44 @@ from tplink_smartplug import SmartPlug
 import time
 
 # Set up plugs
-livingroom  = SmartPlug('192.168.1.140')
-bedroom     = SmartPlug('192.168.1.139')
-kitchen     = SmartPlug('192.168.1.136')
-desk        = SmartPlug('192.168.1.110')
-bathroom    = SmartPlug('192.168.1.125')
-twinklies   = SmartPlug('192.168.1.122')
+hs100_kitchen = SmartPlug('192.168.1.140')
+hs100_office = SmartPlug('192.168.1.139')
+hs103_guestroom = SmartPlug('192.168.1.136')
+hs103_livingroom = SmartPlug('192.168.1.110')
+hs103_bedroom = SmartPlug('192.168.1.125')
+hs103_basement = SmartPlug('192.168.1.122')
+hs105_piano = SmartPlug('192.168.1.130')
+hs105_porch = SmartPlug('192.168.1.121')
 
-livingroom_on_init  = False
-bedroom_on_init     = False
-kitchen_on_init     = False
-desk_on_init        = False
-bathroom_on_init    = False
-twinklies_on_init   = False
+hs100_kitchen_on_init = False
+hs100_office_on_init = False
+hs103_guestroom_on_init = False
+hs103_livingroom_on_init = False
+hs103_bedroom_on_init = False
+hs103_basement_on_init = False
+hs105_piano_on_init = False
+hs105_porch_on_init = False
+
 
 def set_initial_states():
-    global livingroom_on_init
-    global bedroom_on_init
-    global kitchen_on_init
-    global desk_on_init
-    global bathroom_on_init
-    global twinklies_on_init
+    global hs100_kitchen_on_init
+    global hs100_office_on_init
+    global hs103_guestroom_on_init
+    global hs103_livingroom_on_init
+    global hs103_bedroom_on_init
+    global hs103_basement_on_init
+    global hs105_piano_on_init
+    global hs105_porch_on_init
 
-    livingroom_on_init  = livingroom.is_on
-    bedroom_on_init     = bedroom.is_on
-    kitchen_on_init     = kitchen.is_on
-    desk_on_init        = desk.is_on
-    bathroom_on_init    = bathroom.is_on
-    twinklies_on_init   = twinklies.is_on
+    hs100_kitchen_on_init = hs100_kitchen.is_on
+    hs100_office_on_init = hs100_office.is_on
+    hs103_guestroom_on_init = hs103_guestroom.is_on
+    hs103_livingroom_on_init = hs103_livingroom.is_on
+    hs103_bedroom_on_init = hs103_bedroom.is_on
+    hs103_basement_on_init = hs103_basement.is_on
+    hs105_piano_on_init = hs105_piano.is_on
+    hs105_porch_on_init = hs105_porch.is_on
+
 
 def reset_light(plug, is_on_init):
     if plug.is_on and not is_on_init:
@@ -45,12 +55,14 @@ def reset_light(plug, is_on_init):
 
 def reset_lights():
     # Make sure lights end how they started
-    reset_light(livingroom, livingroom_on_init)
-    reset_light(bedroom, bedroom_on_init)
-    reset_light(kitchen, kitchen_on_init)
-    reset_light(desk, desk_on_init)
-    reset_light(bathroom, bathroom_on_init)
-    reset_light(twinklies, twinklies_on_init)
+    reset_light(hs100_kitchen, hs100_kitchen_on_init)
+    reset_light(hs100_office, hs100_office_on_init)
+    reset_light(hs103_guestroom, hs103_guestroom_on_init)
+    reset_light(hs103_livingroom, hs103_livingroom_on_init)
+    reset_light(hs103_bedroom, hs103_bedroom_on_init)
+    reset_light(hs103_basement, hs103_basement_on_init)
+    reset_light(hs105_piano, hs105_piano_on_init)
+    reset_light(hs105_porch, hs105_porch_on_init)
 
 
 def blink_light(plug):
@@ -61,8 +73,7 @@ def blink_light(plug):
 
 
 """
-This function will blink the two smart plugs at
-0.5 second intervals
+This function will blink the smart plugs at 1 second intervals
 """
 def start_blink():
     # Keep track of number of blinks
@@ -74,19 +85,21 @@ def start_blink():
         # num_blinks < #: # should be even
         while (num_blinks < 8):
             # Blink lights
-            blink_light(bedroom)
-            blink_light(livingroom)
-            blink_light(kitchen)
-            blink_light(desk)
-            blink_light(bathroom)
-            blink_light(twinklies)
+            blink_light(hs100_office)
+            blink_light(hs100_kitchen)
+            blink_light(hs103_guestroom)
+            blink_light(hs103_livingroom)
+            blink_light(hs103_bedroom)
+            blink_light(hs103_basement)
+            blink_light(hs105_piano)
+            blink_light(hs105_porch)
 
             # Pause for 1 second, then increment time
             time.sleep(1)
             num_blinks += 1
 
         reset_lights()
-        
+
     except:
         # Make sure lights end how they started
         reset_lights()
